@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using e_commerce.Models;
+using e_commerce.Data;
 
 namespace e_commerce.Migrations
 {
@@ -14,19 +14,19 @@ namespace e_commerce.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
+                .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("e_commerce.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -50,34 +50,34 @@ namespace e_commerce.Migrations
                         new
                         {
                             ProductId = 1,
-                            Cost = 500.0,
+                            Cost = 500m,
                             Description = "plastic chair",
                             Name = "Plastic chair",
-                            ProductCategory = 1
+                            ProductCategory = 2
                         },
                         new
                         {
                             ProductId = 2,
-                            Cost = 5000.0,
+                            Cost = 5000m,
                             Description = "Office chair",
                             Name = "Office chair",
-                            ProductCategory = 1
+                            ProductCategory = 2
                         },
                         new
                         {
                             ProductId = 3,
-                            Cost = 50000.0,
+                            Cost = 50000m,
                             Description = "Laptop",
                             Name = "Hp Laptop",
-                            ProductCategory = 0
+                            ProductCategory = 1
                         },
                         new
                         {
                             ProductId = 4,
-                            Cost = 5000.0,
+                            Cost = 5000m,
                             Description = "Utensils",
                             Name = "Pressure cooker",
-                            ProductCategory = 2
+                            ProductCategory = 3
                         });
                 });
 #pragma warning restore 612, 618

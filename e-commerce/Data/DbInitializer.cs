@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using e_commerce.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace e_commerce.Models
+namespace e_commerce.Data
 {
     public static class DbInitializer
     {

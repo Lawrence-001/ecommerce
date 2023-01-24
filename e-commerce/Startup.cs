@@ -1,4 +1,4 @@
-using e_commerce.Models;
+using e_commerce.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +29,7 @@ namespace e_commerce
             services.AddDbContext<AppDbContext>(Options =>
             Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddMvc();
             services.AddControllersWithViews();
         }
 
