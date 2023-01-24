@@ -1,4 +1,6 @@
-﻿using e_commerce.Models;
+﻿using e_commerce.Data;
+using e_commerce.Models;
+using e_commerce.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,22 +14,35 @@ namespace e_commerce.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IProductRepo productRepo;
-        private readonly AppDbContext context;
+        private readonly IProductRepo _productRepo;
 
-        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo)
         {
             _logger = logger;
-            this.productRepo = productRepo;
-            this.context = context;
+            _productRepo = productRepo;
         }
 
         public IActionResult Index()
         {
-            var model = productRepo.GetProducts();
+            var model = _productRepo.GetProducts();
             return View(model);
         }
-
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Product newProduct)
+        {
+            ProductCreateVM productCreateVM = new ProductCreateVM();
+            if (ModelState.IsValid)
+            {
+                _productRepo.AddProduct(newProduct);
+                return RedirectToAction("index");
+            }
+            return View(productCreateVM);
+        }
         public IActionResult Privacy()
         {
             return View();

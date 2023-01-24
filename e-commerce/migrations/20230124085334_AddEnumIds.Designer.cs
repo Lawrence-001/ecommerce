@@ -9,8 +9,8 @@ using e_commerce.Data;
 namespace e_commerce.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221206195947_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230124085334_AddEnumIds")]
+    partial class AddEnumIds
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,7 +55,7 @@ namespace e_commerce.Migrations
                             Cost = 500.0,
                             Description = "plastic chair",
                             Name = "Plastic chair",
-                            ProductCategory = 1
+                            ProductCategory = 2
                         },
                         new
                         {
@@ -63,7 +63,7 @@ namespace e_commerce.Migrations
                             Cost = 5000.0,
                             Description = "Office chair",
                             Name = "Office chair",
-                            ProductCategory = 1
+                            ProductCategory = 2
                         },
                         new
                         {
@@ -71,7 +71,7 @@ namespace e_commerce.Migrations
                             Cost = 50000.0,
                             Description = "Laptop",
                             Name = "Hp Laptop",
-                            ProductCategory = 0
+                            ProductCategory = 1
                         },
                         new
                         {
@@ -79,7 +79,7 @@ namespace e_commerce.Migrations
                             Cost = 5000.0,
                             Description = "Utensils",
                             Name = "Pressure cooker",
-                            ProductCategory = 2
+                            ProductCategory = 3
                         });
                 });
 #pragma warning restore 612, 618

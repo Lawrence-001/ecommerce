@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using e_commerce.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace e_commerce.Models
+namespace e_commerce.Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -12,6 +13,6 @@ namespace e_commerce.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Seed();
         }
-       public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; }
     }
 }

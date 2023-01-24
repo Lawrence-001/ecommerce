@@ -2,9 +2,9 @@
 {
     public enum ProductCategory
     {
-        Electronic,
-        Furniture,
-        Kitchen,
-        Other
+        Electronic=1,
+        Furniture=2,
+        Kitchen=3,
+        Other=4,
     }
 }

@@ -16,7 +16,7 @@ namespace e_commerce.Models
         public ProductCategory? ProductCategory { get; set; }
         public string ImgUrl { get; set; }
         [Required]
-        public double Cost { get; set; }
+        public decimal Cost { get; set; }
 
     }
 }

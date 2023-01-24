@@ -2,6 +2,13 @@
 @{
     ViewData["Title"] = "Products";
 }
+<div>
+    <form class="d-flex" role="search" style="background-color: #e3f2fd;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" asp-action="search" asp-controller="home">Search</button>
+    </form>
+</div>
+
 <div class="row justify-content-center">
 
     <div class="card-deck">
@@ -16,9 +23,9 @@
                     <a asp-controller="home" asp-action="details" asp-route-Id="@product.ProductId" class="btn btn-outline-primary"> View</a>
                     <a asp-controller="home" asp-action="edit" asp-route-Id="@product.ProductId" class="btn btn-outline-success"> Edit</a>
                     <a asp-controller="home" asp-action="delete" asp-route-Id="@product.ProductId" class="btn btn-outline-danger"> Delete</a>
+                    <a asp-controller="home" asp-action="cart" asp-route-Id="@product.ProductId" class="btn btn-outline-primary"> Add to cart</a>
                 </div>
             </div>
-
         }
         <div style="position:fixed; right:25px; bottom:25px">
             <a asp-controller="home" asp-action="create" class="btn btn-success">Add Product</a>
