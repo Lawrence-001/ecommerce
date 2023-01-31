@@ -1,14 +1,15 @@
-﻿@model ProductCreateVM
-
+﻿@model ProductEditVM
 @{
-    ViewBag.Title = "Create a new product";
+    ViewBag.Title = "Edit Product";
 }
-<h4 class="text-center">Create a new Product</h4>
+<h3 class="text-center">Edit product</h3>
+
 <div class="row">
     <div class="container-fluid col-sm-8 col-md-7 col-lg-6">
-        <form class="form-group" method="post" asp-action="create" asp-controller="home">
+        <form class="form-group" method="post" asp-action="edit" asp-controller="home">
             <div class="text-danger" asp-validation-summary="All">
             </div>
+            <input  hidden asp-for="ProductId" />
             <div>
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" />
@@ -30,10 +31,7 @@
                 <input asp-for="Cost" class="form-control" />
             </div><br />
             <div>
-                <button type="submit"  asp-action="create" asp-controller="home" class="btn btn-outline-primary"> Add Product</button>
-                <a asp-action="index" asp-controller="home" class="btn btn-outline-info float-right">Show All Products</a>
+                <button type="submit" asp-action="edit" asp-controller="home" class="btn btn-outline-primary"> Update</button>
+                <a asp-action="index" asp-controller="home" class="btn btn-outline-info float-right">Cancel</a>
             </div>
         </form>
-
-    </div>
-</div>
