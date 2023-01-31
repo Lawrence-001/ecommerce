@@ -43,6 +43,61 @@ namespace e_commerce.Controllers
             }
             return View(productCreateVM);
         }
+        public IActionResult Details(int id)
+        {
+            var prod = _productRepo.GetProductById(id);
+            if (prod != null)
+            {
+                return View(prod);
+            }
+            return NotFound();
+        }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var product = _productRepo.GetProductById(id);
+            if (product != null)
+            {
+                ProductEditVM prod = new ProductEditVM()
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    Description = product.Description,
+                    ProductCategory = (ProductCategory)product.ProductCategory,
+                    ImgUrl = product.ImgUrl,
+                    Cost = product.Cost
+                };
+                return View(prod);
+            }
+            return NotFound();
+        }
+        [HttpPost]
+        public IActionResult Edit(ProductEditVM model)
+        {
+            if (ModelState.IsValid)
+            {
+                var prod = _productRepo.GetProductById(model.ProductId);
+                prod.Name = model.Name;
+                prod.Description = model.Description;
+                prod.ProductCategory = model.ProductCategory;
+                prod.ImgUrl = model.ImgUrl;
+                prod.Cost = model.Cost;
+                _productRepo.UpdateProduct(prod);
+                return RedirectToAction("index");
+
+            }
+            return View(model);
+        }
+        public IActionResult Delete(int id)
+        {
+            var prod = _productRepo.GetProductById(id);
+            if (prod!=null)
+            {
+                _productRepo.DeleteProduct(id);
+                return RedirectToAction("index");
+            }
+            return NotFound();
+        }
         public IActionResult Privacy()
         {
             return View();
