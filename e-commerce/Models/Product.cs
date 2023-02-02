@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace e_commerce.Models
@@ -16,6 +18,7 @@ namespace e_commerce.Models
         public ProductCategory? ProductCategory { get; set; }
         public string ImgUrl { get; set; }
         [Required]
+        [Column(TypeName = "decimal(18, 2")]
         public decimal Cost { get; set; }
 
     }

@@ -15,17 +15,31 @@ namespace e_commerce.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepo _productRepo;
+        private readonly AppDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo)
+        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo, AppDbContext context)
         {
             _logger = logger;
             _productRepo = productRepo;
+            _context = context;
         }
 
         public IActionResult Index()
         {
             var model = _productRepo.GetProducts();
             return View(model);
+        }
+        [HttpGet]
+        public IActionResult Index( string searchString)
+        {
+            var productQuery = from m in _context.Products select m;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                productQuery = productQuery.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
+            }
+            return View(productQuery);
+            //var model = _productRepo.GetProducts();
+            //return View(model);
         }
         [HttpGet]
         public IActionResult Create()
@@ -50,7 +64,7 @@ namespace e_commerce.Controllers
             {
                 return View(prod);
             }
-            return NotFound();
+            return View("NotFound");
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -69,7 +83,7 @@ namespace e_commerce.Controllers
                 };
                 return View(prod);
             }
-            return NotFound();
+            return View("NotFound");
         }
         [HttpPost]
         public IActionResult Edit(ProductEditVM model)
@@ -91,12 +105,12 @@ namespace e_commerce.Controllers
         public IActionResult Delete(int id)
         {
             var prod = _productRepo.GetProductById(id);
-            if (prod!=null)
+            if (prod != null)
             {
                 _productRepo.DeleteProduct(id);
                 return RedirectToAction("index");
             }
-            return NotFound();
+            return View("NotFound");
         }
         public IActionResult Privacy()
         {

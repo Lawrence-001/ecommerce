@@ -1,4 +1,5 @@
 using e_commerce.Data;
+using e_commerce.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace e_commerce.Models
+namespace e_commerce
 {
     public class Startup
     {
