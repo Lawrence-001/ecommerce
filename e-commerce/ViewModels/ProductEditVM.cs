@@ -17,6 +17,6 @@ namespace e_commerce.ViewModels
         [Required]
         public string ImgUrl { get; set; }
         [Required]
-        public decimal Cost { get; set; }
+        public double Cost { get; set; }
     }
 }

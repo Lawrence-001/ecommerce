@@ -71,7 +71,7 @@ namespace e_commerce.Models
             return CartItems ?? (CartItems = _context.ShoppingCartItems.Where(c => c.CartId == CartId)
                 .Include(c => c.Product).ToList());
         }
-        public decimal CartTotal()
+        public double CartTotal()
         {
             var total = _context.ShoppingCartItems.Where(p => p.CartId == CartId).Select(p => p.Product.Cost * p.Quantity).Sum();
             return total;
