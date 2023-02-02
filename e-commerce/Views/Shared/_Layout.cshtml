@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - E-commerce</title>
@@ -13,9 +14,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="container-fluid  sticky-top">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-expand-lg bg-light border-bottom box-shadow mb-3">
-            <div class="container-fluid">
+    <div class="Container  sticky-top">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="Container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/home.jpg" width="50" height="34" class="logo" />
                 </a>
@@ -24,6 +25,20 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+            <div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-action="index" asp-controller="home"> Home</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <ul>
+                    @await Component.InvokeAsync("CartSummary")
+                </ul>
+            </div>
+
 
 
         </nav>
