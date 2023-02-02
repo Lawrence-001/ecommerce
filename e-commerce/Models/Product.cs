@@ -18,8 +18,7 @@ namespace e_commerce.Models
         public ProductCategory? ProductCategory { get; set; }
         public string ImgUrl { get; set; }
         [Required]
-        [Column(TypeName = "decimal(18, 2")]
-        public decimal Cost { get; set; }
+        public double Cost { get; set; }
 
     }
 }

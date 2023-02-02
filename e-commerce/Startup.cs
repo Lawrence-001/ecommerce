@@ -3,6 +3,7 @@ using e_commerce.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ namespace e_commerce
             services.AddDbContext<AppDbContext>(Options =>
             Options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(c => Cart.GetCart(c));
