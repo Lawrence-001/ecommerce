@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="Container  sticky-top">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
-            <div class="Container-fluid">
+    <div class="container-fluid  sticky-top">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark border-bottom box-shadow mb-3" @*style="background-color:burlywood"*@>
+            <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/home.jpg" width="50" height="34" class="logo" />
                 </a>
@@ -24,21 +24,28 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
-            <div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" asp-action="index" asp-controller="home"> Home</a>
-                    </li>
-                </ul>
-            </div>
 
-            <div>
-                <ul>
-                    @await Component.InvokeAsync("CartSummary")
-                </ul>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:black" asp-action="index" asp-controller="home"> Home</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav  mb-2 ml-auto">
+                        <li class="nav-item">
+                            <a asp-action="register" asp-controller="account" style="color:black">Register</a>
+                        </li>
+                        <li class="nav-item ml-2">
+                            <a asp-action="login" asp-controller="account" style="color:black">Login</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ml-2">
+                        <li class="nav-item">
+                            @await Component.InvokeAsync("CartSummary")
+                        </li>
+                    </ul>
+                </div>
             </div>
-
 
 
         </nav>

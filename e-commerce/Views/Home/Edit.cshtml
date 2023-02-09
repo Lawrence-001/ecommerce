@@ -23,8 +23,8 @@
                 <select asp-for="ProductCategory" class="form-control" asp-items="@Html.GetEnumSelectList<ProductCategory>()">Select...</select>
             </div>
             <div>
-                <label asp-for="ImgUrl"></label>
-                <input asp-for="ImgUrl" class="form-control" />
+                <label asp-for="Photo"></label>
+                <input type="file" asp-for="Photo" class="form-control"/>
             </div>
             <div>
                 <label asp-for="Cost"></label>
