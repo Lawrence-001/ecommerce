@@ -75,3 +75,11 @@ body {
 .logo {
     border-radius: 25%;
 }
+.imageuploaded{
+    height:200px;
+    width:auto;
+}
+.carouselImage{
+    height:350px;
+    width: 150px;
+}

@@ -1,11 +1,14 @@
 ﻿using e_commerce.Data;
 using e_commerce.Models;
 using e_commerce.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,12 +19,14 @@ namespace e_commerce.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepo _productRepo;
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostBuilder;
 
-        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo, AppDbContext context)
+        public HomeController(ILogger<HomeController> logger, IProductRepo productRepo, AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _productRepo = productRepo;
             _context = context;
+            _webHostBuilder = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -30,7 +35,7 @@ namespace e_commerce.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult Index( string searchString)
+        public IActionResult Index(string searchString)
         {
             var productQuery = from m in _context.Products select m;
             if (!String.IsNullOrEmpty(searchString))
@@ -47,16 +52,38 @@ namespace e_commerce.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Product newProduct)
+        public IActionResult Create(ProductCreateVM model)
         {
-            ProductCreateVM productCreateVM = new ProductCreateVM();
             if (ModelState.IsValid)
             {
-                _productRepo.AddProduct(newProduct);
+                string uniqueFileName = null;
+                if (model.Photo != null)
+                {
+                    string uploadsFolder = Path.Combine(_webHostBuilder.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    //using (var stream = new FileStream(filePath, FileMode.Create))
+                    //{
+                    //    model.Photo.CopyTo(stream);
+                    //}
+                }
+                Product product = new Product()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    ProductCategory = model.ProductCategory,
+                    ImgUrl = uniqueFileName,
+                    Cost = model.Cost
+                };
+                _productRepo.AddProduct(product);
                 return RedirectToAction("index");
             }
-            return View(productCreateVM);
+
+            return View(model);
         }
+
+
         public IActionResult Details(int id)
         {
             var prod = _productRepo.GetProductById(id);
@@ -78,7 +105,7 @@ namespace e_commerce.Controllers
                     Name = product.Name,
                     Description = product.Description,
                     ProductCategory = (ProductCategory)product.ProductCategory,
-                    ImgUrl = product.ImgUrl,
+                    Photo = product.ImgUrl,
                     Cost = product.Cost
                 };
                 return View(prod);
@@ -94,7 +121,7 @@ namespace e_commerce.Controllers
                 prod.Name = model.Name;
                 prod.Description = model.Description;
                 prod.ProductCategory = model.ProductCategory;
-                prod.ImgUrl = model.ImgUrl;
+                prod.ImgUrl = model.Photo;
                 prod.Cost = model.Cost;
                 _productRepo.UpdateProduct(prod);
                 return RedirectToAction("index");

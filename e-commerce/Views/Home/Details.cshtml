@@ -1,6 +1,7 @@
 ﻿@model Product
 @{
     ViewBag.Title = "Product details";
+    var uploadedPhoto = "~/images/" + (Model.ImgUrl ?? "audi.jpg");
 }
 <h3 class="text-center"> Product Details</h3>
 
@@ -10,8 +11,8 @@
             <div class="card-header text-center">
                 @Model.Name
             </div>
-            <div class="card-body">
-                <img src="~/images/sofa.jpg" style="width:25px height:15px" class="card-img-top" alt="@Model.Name" />
+            <div class="card-body" style="max-height:40rem;">
+                <img src="@uploadedPhoto" style="width:25px height:15px" asp-append-version="true" class="card-img-top" alt="@Model.Name" />
                 <p class="card-text">Description: @Model.Description</p>
                 <p class="card-text">Cost: @Model.Cost</p>
             </div>
@@ -19,7 +20,7 @@
                 <a asp-controller="home" asp-action="index" class="btn btn-outline-primary">Back</a>
                 <a asp-controller="home" asp-action="edit" asp-route-Id="@Model.ProductId" class="btn btn-outline-success">Update</a>
                 <a asp-controller="home" asp-action="delete" asp-route-Id="@Model.ProductId" class="btn btn-outline-danger">Delete</a>
-                <a asp-controller="home" asp-action="cart" asp-route-Id="@Model.ProductId" class="btn btn-outline-primary"> Add to cart</a>
+                <a asp-controller="cart" asp-action="addtocart" asp-route-Id="@Model.ProductId" class="btn btn-outline-primary"> Add to cart</a>
             </div>
 
         </div>

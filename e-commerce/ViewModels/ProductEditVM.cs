@@ -1,4 +1,5 @@
 ﻿using e_commerce.Models;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -15,7 +16,7 @@ namespace e_commerce.ViewModels
         [Display(Name = "Category")]
         public ProductCategory ProductCategory { get; set; }
         [Required]
-        public string ImgUrl { get; set; }
+        public string Photo { get; set; }
         [Required]
         public double Cost { get; set; }
     }
