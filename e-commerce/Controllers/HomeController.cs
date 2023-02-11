@@ -77,7 +77,7 @@ namespace e_commerce.Controllers
                     Cost = model.Cost
                 };
                 _productRepo.AddProduct(product);
-                return RedirectToAction("index");
+                return RedirectToAction("details");
             }
 
             return View(model);
