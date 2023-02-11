@@ -69,16 +69,15 @@ namespace e_commerce.Controllers
                 {
                     return RedirectToAction("index", "home");
                 }
-                ModelState.AddModelError("", "Login failed, please try again");
+                ModelState.AddModelError(string.Empty, "Invalid credentials, please try again");
             }
             return View(model);
 
         }
-        [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "home");
+            return RedirectToAction("index", "home");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity;
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<AppUser> _signInManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
 </head>
 <body>
     <div class="container-fluid  sticky-top">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark border-bottom box-shadow mb-3" @*style="background-color:burlywood"*@>
+        <nav class="navbar navbar-expand-sm bg-secondary navbar-dark border-bottom box-shadow mb-3" @*style="background-color: burlywood"*@>
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/home.jpg" width="50" height="34" class="logo" />
@@ -28,17 +29,34 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2">
                         <li class="nav-item">
-                            <a class="nav-link" style="color:black" asp-action="index" asp-controller="home"> Home</a>
+                            <a class="nav-link" asp-action="index" asp-controller="home" style="color:aquamarine"> Home</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav  mb-2 ml-auto">
-                        <li class="nav-item">
-                            <a asp-action="register" asp-controller="account" style="color:black">Register</a>
-                        </li>
-                        <li class="nav-item ml-2">
-                            <a asp-action="login" asp-controller="account" style="color:black">Login</a>
-                        </li>
+
+                        @if (_signInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <form method="post" asp-action="logout">
+                                    <a class="nav-link" asp-action="logout" asp-controller="account" style="color:aquamarine">Logout  @User.Identity.Name </a>
+                                </form>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-action="register" asp-controller="account" style="color:aquamarine">Register</a>
+                            </li>
+
+
+                            <li class="nav-item ml-2">
+                                <a asp-action="login" asp-controller="account" style="color:aquamarine">Login</a>
+                            </li>
+                        }
+
                     </ul>
+
                     <ul class="navbar-nav ml-2">
                         <li class="nav-item">
                             @await Component.InvokeAsync("CartSummary")
