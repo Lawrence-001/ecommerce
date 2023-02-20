@@ -9,7 +9,7 @@
         <form class="form-group" method="post" asp-action="edit" asp-controller="home">
             <div class="text-danger" asp-validation-summary="All">
             </div>
-            <input  hidden asp-for="ProductId" />
+            <input hidden asp-for="ProductId" />
             <div>
                 <label asp-for="Name"></label>
                 <input asp-for="Name" class="form-control" />
@@ -24,7 +24,7 @@
             </div>
             <div>
                 <label asp-for="Photo"></label>
-                <input type="file" asp-for="Photo" class="form-control"/>
+                <input type="file" asp-for="Photo" class="form-control" />
             </div>
             <div>
                 <label asp-for="Cost"></label>
@@ -35,3 +35,5 @@
                 <a asp-action="index" asp-controller="home" class="btn btn-outline-info float-right">Cancel</a>
             </div>
         </form>
+        </div>
+    </div>

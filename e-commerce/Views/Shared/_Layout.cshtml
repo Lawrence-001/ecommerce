@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<AppUser> _signInManager
+﻿@inject SignInManager<AppUser> _signInManager
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +13,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body >
     <div class="container-fluid  sticky-top">
         <nav class="navbar navbar-expand-sm bg-secondary navbar-dark border-bottom box-shadow mb-3" @*style="background-color: burlywood"*@>
             <div class="container-fluid">
@@ -68,9 +67,12 @@
 
         </nav>
     </div>
+    
     <div class="container">
+       
         <main role="main" class="pb-3">
             @RenderBody()
+            
         </main>
     </div>
 

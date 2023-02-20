@@ -17,7 +17,7 @@ namespace e_commerce.ViewModels
         [Required]
         public IFormFile Photo { get; set; }
         [Required]
-        [Column (TypeName ="decimal(18, 2")]
+       // [Column (TypeName ="decimal(18, 2")]
         public double Cost { get; set; }
     }
 }

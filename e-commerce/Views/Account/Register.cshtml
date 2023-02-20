@@ -7,6 +7,7 @@
 <div class="row">
     <div class="container-fluid col-lg-4 col-md-6 col-sm-7" style="background-color:papayawhip">
         <form method="post" asp-action="register" asp-controller="account">
+            <div asp-validation-summary="ModelOnly"></div>
             <div>
                 <label asp-for="FirstName"></label>
                 <input asp-for="FirstName" class="form-control" />
