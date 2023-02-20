@@ -1,6 +1,7 @@
 ﻿using e_commerce.Data;
 using e_commerce.Models;
 using e_commerce.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,16 +29,17 @@ namespace e_commerce.Controllers
             _context = context;
             _webHostBuilder = webHostEnvironment;
         }
-
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var model = _productRepo.GetProducts();
             return View(model);
         }
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index(string searchString)
         {
-            var productQuery = from m in _context.Products select m;
+            var productQuery = from m in _context.Products select m;        //creating a linq query to select the products
             if (!String.IsNullOrEmpty(searchString))
             {
                 productQuery = productQuery.Where(s => s.Name.Contains(searchString) || s.Description.Contains(searchString));
@@ -47,11 +49,13 @@ namespace e_commerce.Controllers
             //return View(model);
         }
         [HttpGet]
+        [Authorize(Roles ="Admin, Super User")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, Super User")]
         public IActionResult Create(ProductCreateVM model)
         {
             if (ModelState.IsValid)
@@ -83,7 +87,7 @@ namespace e_commerce.Controllers
             return View(model);
         }
 
-
+        [AllowAnonymous]
         public IActionResult Details(int id)
         {
             var prod = _productRepo.GetProductById(id);
@@ -94,6 +98,7 @@ namespace e_commerce.Controllers
             return View("NotFound");
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, Super User")]
         public IActionResult Edit(int id)
         {
             var product = _productRepo.GetProductById(id);
@@ -106,13 +111,14 @@ namespace e_commerce.Controllers
                     Description = product.Description,
                     ProductCategory = (ProductCategory)product.ProductCategory,
                     Photo = product.ImgUrl,
-                    Cost = product.Cost
+                    Cost = (double)product.Cost
                 };
                 return View(prod);
             }
             return View("NotFound");
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, Super User")]
         public IActionResult Edit(ProductEditVM model)
         {
             if (ModelState.IsValid)
@@ -129,6 +135,7 @@ namespace e_commerce.Controllers
             }
             return View(model);
         }
+        [Authorize(Roles = "Admin, Super User")]
         public IActionResult Delete(int id)
         {
             var prod = _productRepo.GetProductById(id);

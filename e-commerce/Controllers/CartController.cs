@@ -24,7 +24,7 @@ namespace e_commerce.Controllers
             CartVM cartVM = new CartVM()
             {
                 Cart = _cart,
-                CartTotal = _cart.CartTotal()
+                CartTotal = (decimal)_cart.CartTotal()
             };
             return View(cartVM);
         }
